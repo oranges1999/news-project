@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix'=>'admin/','namespace'=>'Admin', 'as'=>'admin.'],function(){ // Update middleware later
+Route::group(['prefix'=>'admin/','namespace'=>'Admin', 'as'=>'admin.'],function(){ 
     Route::group(['middleware'=>'admin'],function(){
         //  Admin main page
         Route::get('','AdminHomeController@index')->name('homepage');
@@ -31,25 +31,35 @@ Route::group(['prefix'=>'admin/','namespace'=>'Admin', 'as'=>'admin.'],function(
         Route::resource('notification','NotificationController');
         //  Image
         Route::resource('image','ImageController');
+        // Comment
+        Route::resource('comment','AdminCommentController');
     });
 });
 
-// User Notification
+// User
 Route::group(['middleware'=>'auth'],function(){
-    Route::post('/mark-as-read','UserNotificationController@markOneAsRead')->name('markAsRead');
-    Route::get('/mark-all-read','UserNotificationController@markAllAsRead')->name('markAllRead');
+    // Comment
+    Route::controller('User\UserCommentController')->group(function(){
+        Route::post('/comment/{post}','store')->name('pComment');
+        Route::delete('/comment/{comment}','destroy')->name('deleteComment');
+    });
+    // Notification
+    Route::controller('UserNotificationController')->group(function(){
+        Route::post('/mark-as-read','markOneAsRead')->name('markAsRead');
+        Route::get('/mark-all-read','markAllAsRead')->name('markAllRead');
+    });
 });
 
-
-
 // Authentication
-Route::get('login','AuthController@Login')->name('login');
-Route::post('login','AuthController@pLogin')->name('pLogin');
-Route::get('register','AuthController@register')->name('register');
-Route::post('register','AuthController@pRegister')->name('pRegister');
-Route::get('logout','AuthController@Logout')->name('logout');
+Route::controller('AuthController')->group(function(){
+    Route::get('login','Login')->name('login');
+    Route::post('login','pLogin')->name('pLogin');
+    Route::get('register','register')->name('register');
+    Route::post('register','pRegister')->name('pRegister');
+    Route::get('logout','Logout')->name('logout');
+});
 
-// Homepage
+// Homepage navigation
 Route::get('/','User\UserHomeController')->name('homepage');
 Route::get('post/{post}','User\ShowPostController@show')->name('showPost');
 Route::get('filter','User\UserFilterController@filter')->name('postFilter');
@@ -57,9 +67,7 @@ Route::get('category/{category}','User\PostCategoryController')->name('postCateg
 Route::get('tag/{tag}','User\PostTagController')->name('postTag');
 
 
-
 // Test
 Route::get('/test',function(){
     return view('test');
 });
-// Post search & filter

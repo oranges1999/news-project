@@ -80,6 +80,10 @@
                 <li class="nav-item d-flex justify-content-center">
                   <a href="{{route('markAllRead')}}">Mark all as read</a>
                 </li>
+              @else
+              <li class="nav-item d-flex justify-content-center">
+                <p>Login to see notifications</p>
+              </li>
               @endauth
             </ul>
           </div>

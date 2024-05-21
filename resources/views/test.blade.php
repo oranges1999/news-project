@@ -7,7 +7,19 @@
 // dd($path);
 
 use App\Models\SendNotifications;
+use App\Models\Comment;
+use App\Enums\Status;
 
-$notifications=SendNotifications::where('send_date','<=',now())->where('status','pending')->toRawSql();
-echo $notifications;
+$comments = Comment::all();
+foreach ($comments as $comment) {
+    
+    if($comment->status == "Pending"){
+        echo "true";
+    }else{
+        echo "false";
+    }
+    dd($comment->status);
+};
+
+
 // dd($notifications);

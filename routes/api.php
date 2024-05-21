@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Admin Tags
 Route::get('tags','Api\TagsController@showTags')->name('showTags');
 Route::post('tags','Api\TagsController@createTags')->name('createTags');
-
 
