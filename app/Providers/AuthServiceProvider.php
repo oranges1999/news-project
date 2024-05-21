@@ -6,10 +6,13 @@ namespace App\Providers;
 
 use App\Enums\UserRole;
 use App\Models\Categories;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\SendNotification;
+use App\Models\SendNotifications;
 use App\Models\User;
 use App\Policies\CategoriesPolicies;
+use App\Policies\CommentPolicy;
 use App\Policies\PostPolicies;
 use App\Policies\SendNotificationPolices;
 use App\Policies\UserPolicy;
@@ -28,7 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         Categories::class => CategoriesPolicies::class,
         User::class => UserPolicy::class,
         Post::class => PostPolicies::class,
-        SendNotification::class => SendNotificationPolices::class
+        SendNotifications::class => SendNotificationPolices::class,
+        Comment::class => CommentPolicy::class
     ];
 
     /**

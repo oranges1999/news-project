@@ -127,7 +127,7 @@
     }
 
     function fetchTags(){
-        fetch('{{route('showTags')}}')
+        fetch('{{route("showTags")}}')
         .then(r=>r.json())
         .then(dat=>$.each(dat,function(index,value){
             var option = '<option value="'+value['id']+'">'+value['name']+'</option>'
@@ -142,7 +142,7 @@
     
     $('#createBtn').click(function(){
         removeTags();
-        fetch('{{route('createTags')}}', {
+        fetch('{{route("createTags")}}', {
             method: "POST",
             body: JSON.stringify({
                 _token: '{{csrf_token()}}',

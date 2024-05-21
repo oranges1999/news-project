@@ -22,7 +22,7 @@ a{
             <p><i>{{$category->description}}</i></p>
         </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 d-flex">
         @foreach ($category->post as $post)
         @if ($post->publish_at < now())
         <a href="{{route('showPost',$post->id)}}">

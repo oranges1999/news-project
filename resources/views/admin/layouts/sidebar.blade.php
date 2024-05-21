@@ -42,11 +42,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                      <a href="{{route('admin.categories.index')}}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Categories</p>
-                      </a>
-                  </li>
+                    <a href="{{route('admin.categories.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Categories</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.comment.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Comment</p>
+                    </a>
+                </li>
                 @else
                 <li class="nav-item">
                     <a href="{{route('admin.users.edit',Auth::id())}}" class="nav-link">
@@ -55,12 +61,6 @@
                     </a>
                 </li>
                 @endcan
-                <!-- <li class="nav-item">
-                    <a href="" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Author</p>
-                    </a>
-                </li> -->
                 <li class="nav-item">
                     <a href="{{route('admin.post.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
