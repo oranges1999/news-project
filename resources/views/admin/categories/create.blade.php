@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>Category</h3>
+<hr>
 <div>
     <form action="{{route('admin.categories.store')}}" method="post">
         @csrf
@@ -20,8 +22,8 @@
         </div>
         @foreach ($errors->get('description') as $descriptionMessage)
                 <div>{{$descriptionMessage}}</div>
-        @endforeach        
-        <button type="submit" class="btn btn-primary">Create</button>        
+        @endforeach
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 @endsection

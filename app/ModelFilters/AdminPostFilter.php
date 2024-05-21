@@ -36,12 +36,17 @@ class AdminPostFilter extends ModelFilter
         }
     }
 
-     public function search($search)
+    public function author($author)
+    {
+        if ($author!='none') {
+            return $this->related('user','user_id',$author);
+        }
+    }
+
+    public function search($search)
     {
         if ($search) {
             return $this->whereLike('title',$search);
         }
     }
-
-
 }

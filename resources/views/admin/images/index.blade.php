@@ -11,6 +11,8 @@
 </style>
 @endsection
 @section('content')
+<h3>Image</h3>
+<hr>
 <a href="{{route('admin.image.create')}}">
     <button type="buton" class="btn btn-primary">Add Images</button>
 </a>

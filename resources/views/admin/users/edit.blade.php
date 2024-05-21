@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>User</h3>
+<hr>
 <div>
     <h4>Information</h4>
     <a>
@@ -34,10 +36,10 @@
             @foreach ($errors->get('role') as $roleMessage)
                 <div>{{$roleMessage}}</div>
             @endforeach
-        </div>    
+        </div>
         @endcan
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>  
+    </form>
 </div>
 <hr></hr>
 <div>
@@ -51,7 +53,7 @@
             @foreach ($errors->get('old_password') as $oldPasswordMessage)
                 <div>{{$oldPasswordMessage}}</div>
             @endforeach
-        </div> 
+        </div>
         <div class="form-group">
             <label for="exampleInputPassword1">New Password</label>
             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="New Password" name="password">
