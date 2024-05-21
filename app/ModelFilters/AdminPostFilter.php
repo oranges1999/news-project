@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\ModelFilters;
 
@@ -19,6 +19,7 @@ class AdminPostFilter extends ModelFilter
         if (Auth::user()->role===UserRole::Writer) {
             $this->related('user','user_id',Auth::id());
         }
+        return $this->withTrashed();
     }
 
     public function status($status)
@@ -42,5 +43,5 @@ class AdminPostFilter extends ModelFilter
         }
     }
 
-   
+
 }

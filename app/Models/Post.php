@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
+// Observe by PostObserver, declared in EventServiceProvider
 class Post extends Model
 {
     use HasFactory, SoftDeletes, Notifiable, Filterable;
@@ -30,7 +31,7 @@ class Post extends Model
     public function category(){
         return $this->belongsTo(Categories::class,'category_id');
     }
-    
+
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }

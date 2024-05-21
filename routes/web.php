@@ -15,28 +15,34 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix'=>'admin/','namespace'=>'Admin', 'as'=>'admin.'],function(){ 
+Route::group(['prefix'=>'admin/','namespace'=>'Admin', 'as'=>'admin.'],function(){
     Route::group(['middleware'=>'admin'],function(){
-        //  Admin main page
+        //  Admin & Writter main page
         Route::get('','AdminHomeController@index')->name('homepage');
         Route::post('mark-as-read','AdminHomeController@markOneAsRead')->name('adminMarkAsRead');
         Route::get('mark-all-as-read','AdminHomeController@markAllAsRead')->name('adminMarkAllAsRead');
-        //  Categories
+
+        //  Categories | Only Admin
         Route::resource('categories','CategoriesController');
-        //  User
+
+        //  User | Full control for Admin | Only profile for Writter
         Route::resource('users','UserController');
-        //  Post
+
+        //  Post | Full control for Admin | Only post from Writter
         Route::resource('post','PostController');
-        //  Notification
+
+        //  Notification | Full control for Admin | Only view from Writter
         Route::resource('notification','NotificationController');
-        //  Image
+
+        //  Image | Full control for Admin | Only image from Writter
         Route::resource('image','ImageController');
-        // Comment
-        Route::resource('comment','AdminCommentController');
+
+        // Comment| Only Admin
+        Route::resource('comment','AdminCommentController')->only('index','edit','destroy');
     });
 });
 
-// User
+// All authenticated user
 Route::group(['middleware'=>'auth'],function(){
     // Comment
     Route::controller('User\UserCommentController')->group(function(){
@@ -59,7 +65,7 @@ Route::controller('AuthController')->group(function(){
     Route::get('logout','Logout')->name('logout');
 });
 
-// Homepage navigation
+// Page navigation
 Route::get('/','User\UserHomeController')->name('homepage');
 Route::get('post/{post}','User\ShowPostController@show')->name('showPost');
 Route::get('filter','User\UserFilterController@filter')->name('postFilter');
@@ -67,7 +73,7 @@ Route::get('category/{category}','User\PostCategoryController')->name('postCateg
 Route::get('tag/{tag}','User\PostTagController')->name('postTag');
 
 
-// Test
+// Only for testing purpose
 Route::get('/test',function(){
     return view('test');
 });

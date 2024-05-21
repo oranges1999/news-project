@@ -18,7 +18,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::withTrashed()->get();
         return view('admin.categories.index',compact('categories'));
     }
 
@@ -47,7 +47,7 @@ class CategoriesController extends Controller
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoriesController extends Controller
     public function update(UpdateCategoryRequest $request, Categories $category)
     {
         $updateCategory = $request->validated();
-        
+
         $category->update($updateCategory);
 
         return redirect()->route('admin.categories.index');
@@ -76,7 +76,7 @@ class CategoriesController extends Controller
     public function destroy(Categories $category)
     {
         $category->delete();
-        
+
         return redirect()->back();
     }
 }
