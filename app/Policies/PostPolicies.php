@@ -29,7 +29,7 @@ class PostPolicies
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
-    {   
+    {
         return !($user->role===UserRole::User);
     }
 
@@ -37,10 +37,7 @@ class PostPolicies
      * Determine whether the user can update the model.
      */
     public function update(User $user, Post $post): bool
-    {   
-        if ($post->publish_at<=now()) {
-            return false;
-        }
+    {
         return RoleHelper::roleCheck($user, $post);
     }
 

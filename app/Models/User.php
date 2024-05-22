@@ -12,6 +12,7 @@ use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+// Observe by UserObserver, declared in EventServiceProvider
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -63,5 +64,13 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+    public function likePost(){
+        return $this->belongsToMany(Post::class,'like_post');
+    }
+
+    public function hasLikedPost($id){
+        return $this->likePost()->where('post_id',$id)->exists();
     }
 }

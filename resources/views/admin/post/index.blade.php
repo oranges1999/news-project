@@ -1,29 +1,37 @@
 @extends('admin.homepage')
 @section('content')
+<h3>Post</h3>
+<hr>
 <div>
     <a href="{{route('admin.post.create')}}">
         <button type="button" class="btn btn-primary">Create</button>
     </a>
 </div>
 <form action="{{route('admin.post.index')}}" method="get">
-  <div class="input-group">
-  <input type="text" class="form-control" placeholder="Search" name="search">
-    <select class="custom-select" name="category">
-      <option value="none">Choose category...</option>
-      @foreach ($categories as $category)
-      <option value="{{$category->id}}">{{$category->category}}</option>    
-      @endforeach
-    </select>
-    <select class="custom-select" name="status">
-      <option value="none">Choose status...</option>
-      @foreach ($status as $status)
-      <option value="{{$status}}">{{$status}}</option>    
-      @endforeach
-    </select>
-    <div class="input-group-append">
-      <button type="submit" class="btn btn-outline-secondary">Search</button>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <select class="custom-select" name="author">
+            <option value="none">Choose author...</option>
+            @foreach ($authors as $author)
+                <option value="{{$author->id}}">{{$author->name}}</option>
+            @endforeach
+        </select>
+        <select class="custom-select" name="category">
+            <option value="none">Choose category...</option>
+            @foreach ($categories as $category)
+                <option value="{{$category->id}}">{{$category->category}}</option>
+            @endforeach
+        </select>
+        <select class="custom-select" name="status">
+            <option value="none">Choose status...</option>
+            @foreach ($status as $status)
+                <option value="{{$status}}">{{$status}}</option>
+            @endforeach
+        </select>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </div>
     </div>
-  </div>
 </form>
 <div>
     <table class="table">
@@ -71,4 +79,14 @@
         </tbody>
     </table>
 </div>
+@endsection
+@section('script')
+<script>
+$('.deleteBtn').click(function(e){
+    e.preventDefault()
+    if (confirm('Are you sure?')) {
+        $(e.target).closest('form').submit()
+    }
+})
+</script>
 @endsection

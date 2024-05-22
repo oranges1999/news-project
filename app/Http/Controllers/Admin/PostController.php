@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\Status;
+use App\Enums\UserRole;
 use App\Helper\RoleHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\CreatePostRequest;
@@ -11,6 +12,7 @@ use App\ModelFilters\AdminPostFilter;
 use App\Models\Categories;
 use App\Models\Image;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,10 +27,11 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        $authors = User::where('role',UserRole::Admin)->orWhere('role',UserRole::Writer)->get();
         $categories = Categories::all();
         $status = [Status::Pending, Status::Publish];
         $posts = Post::filter($request->all(),AdminPostFilter::class)->get();
-        return view('admin.post.index',compact('posts','categories','status'));
+        return view('admin.post.index',compact('posts','categories','status', 'authors'));
     }
     /**
      * Show the form for creating a new resource.
@@ -44,7 +47,7 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreatePostRequest $request)
-    {   
+    {
         $tags = $request->safe()->only('tags');
         $post = $request->safe()->except('tags');
         $post = array_merge($post,['user_id'=>Auth::id(),'status'=>Status::Pending]);
@@ -53,15 +56,15 @@ class PostController extends Controller
         foreach ($tags as $key => $value) {
             $post->tags()->attach($value);
         }
-        
-        return redirect()->route('admin.post.index');    
+
+        return redirect()->route('admin.post.index');
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Post $post)
-    {   
+    {
         return view('admin.post.show',compact('post'));
     }
 
@@ -79,7 +82,7 @@ class PostController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdatePostRequest $request, Post $post)
-    {   
+    {
         $updateData = $request->validated();
         dd($updateData);
 
@@ -90,7 +93,7 @@ class PostController extends Controller
         if(!empty($images)){
             $this->storeImage($images,$post);
         }
-        
+
         return redirect()->route('admin.post.index');
     }
 

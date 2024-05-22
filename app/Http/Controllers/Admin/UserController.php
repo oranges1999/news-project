@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return view('admin.users.index',compact('users'));
     }
 
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         $account = $request->validated();
-        
+
         User::create($account);
 
         return redirect()->route('admin.users.index');
@@ -72,15 +72,15 @@ class UserController extends Controller
         }else{
             return redirect()->back();
         }
-        
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-    {   
+    {
         $user->delete();
-        return redirect()->back();        
+        return redirect()->back();
     }
 }

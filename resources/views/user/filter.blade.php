@@ -1,11 +1,11 @@
 @extends('layout.main')
 @section('style')
 <!-- Select2 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.css" integrity="sha512-PO7TIdn2hPTkZ6DSc5eN2DyMpTn/ZixXUQMDLUx+O5d7zGy0h1Th5jgYt84DXvMRhF3N0Ucfd7snCyzlJbAHQA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.css" integrity="sha512-PO7TIdn2hPTkZ6DSc5eN2DyMpTn/ZixXUQMDLUx+O5d7zGy0h1Th5jgYt84DXvMRhF3N0Ucfd7snCyzlJbAHQA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <style>
 #tags, #search, #category, #author{
     width: 100%;
-}    
+}
 .title-image{
     width: 300px;
     max-height: 100%;
@@ -29,7 +29,7 @@ a{
             <div>
                 <h5>Categories</h5>
                 <select name="category" id="category">
-                    <option value=""></option>    
+                    <option value=""></option>
                     @foreach ($categories as $category)
                     <option value="{{$category->id}}">{{$category->category}}</option>
                     @endforeach
@@ -58,14 +58,7 @@ a{
     <div class="col-md-11 d-flex flex-wrap justify-content-center">
         <div class="d-flex flex-wrap justify-content-around">
         @foreach ($posts as $post)
-        <a href="{{route('showPost',$post->id)}}">
-            <div class="post px-4 py-3">
-                <img class="title-image" src="{{$post->front_page_image_path}}" alt="">
-                <div>{{$post->title}}</div>
-                <div><p class="">Author: <i>{{$post->user->name}}</i></p></div>
-                <div><p>Category: <i>{{$post->category->category}}</i></p></div>
-            </div>
-        </a>
+            @include('layout.post-detail')
         @endforeach
         </div>
     </div>
@@ -79,7 +72,7 @@ $(document).ready(function(){
     fetchTags();
     $('#tags').select2({
         multiple:true,
-    });    
+    });
 })
 
 function fetchTags(){

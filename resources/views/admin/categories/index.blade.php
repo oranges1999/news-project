@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>Category</h3>
+<hr>
 <div>
     <a href="{{route('admin.categories.create')}}">
         <button type="button" class="btn btn-primary">Create</button>
@@ -50,5 +52,5 @@ $('.deleteBtn').click(function(e){
     }
 })
 </script>
-    
+
 @endsection

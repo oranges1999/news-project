@@ -1,12 +1,14 @@
 @extends('admin.homepage')
 @section('content')
+<h3>Comment</h3>
+<hr>
 <form action="{{route('admin.comment.index')}}" method="get">
   <div class="input-group">
   <input type="text" class="form-control" placeholder="Search" name="search">
     <select class="custom-select" name="status">
       <option value="none">Choose status...</option>
       @foreach ($status as $status)
-      <option value="{{$status}}">{{$status}}</option>    
+      <option value="{{$status}}">{{$status}}</option>
       @endforeach
     </select>
     <div class="input-group-append">
@@ -49,11 +51,13 @@
                         <button type="button" class="btn btn-primary">Publish</button>
                     </a>
                     @endif
+                    @if (!$comment->deleted_at)
                     <form method="post" action="{{route('admin.comment.destroy',$comment->id)}}">
                         @csrf
-                        @method('destroy')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        @method('delete')
+                        <button type="submit" class="deleteBtn btn btn-danger">Delete</button>
                     </form>
+                    @endif
                 </td>
                 @endcan
             </tr>
@@ -61,4 +65,14 @@
         </tbody>
     </table>
 </div>
+@endsection
+@section('script')
+<script>
+$('.deleteBtn').click(function(e){
+    e.preventDefault()
+    if (confirm('Are you sure?')) {
+        $(e.target).closest('form').submit()
+    }
+})
+</script>
 @endsection

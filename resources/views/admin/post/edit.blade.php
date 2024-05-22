@@ -13,6 +13,8 @@
 </style>
 @endsection
 @section('content')
+<h3>Post</h3>
+<hr>
 <div>
 <form action="{{route('admin.post.update',$post->id)}}" method="post" enctype="multipart/form-data">
         @csrf
@@ -60,7 +62,7 @@
                 <img src="{{$image->path}}" class="image" alt="">
             @endforeach
             </div>
-            
+
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Content</label>
@@ -83,10 +85,10 @@
                 <strong><i>Create tags</i></strong>
                 <div class="text-align-center input-group mb-3">
                     <input id="createTags" type="text" name="name" placeholder="Tags..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="createBtn">Create</button>  
+                    <button class="btn btn-outline-secondary" type="button" id="createBtn">Create</button>
                 </div>
             </div>
-            
+
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Publish at</label>
@@ -117,10 +119,10 @@
             } );
         $('#tags').select2({
             multiple:true,
-        });    
+        });
     })
 
-    
+
 
     function removeTags(){
         $("#tags").empty();
@@ -134,12 +136,12 @@
             $('#tags').append(option);
         }));
     }
-    
+
 
     $('#titleImage').on('change', function() {
         $('#showImage').attr('src',this.value)
     });
-    
+
     $('#createBtn').click(function(){
         removeTags();
         fetch('{{route("createTags")}}', {

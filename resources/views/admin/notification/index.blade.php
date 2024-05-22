@@ -18,7 +18,7 @@
           <td>{{$notification['read_at']}}</td>
           <td>{{$notification['created_at']}}</td>
         </tr>
-      @endforeach  
+      @endforeach
   </tbody>
 </table>
 @can('only-admin',Auth::user())
@@ -61,13 +61,20 @@
             <form method="post" action="{{route('admin.notification.destroy',$notification->id)}}">
               @method('delete')
               @csrf
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="deleteBtn btn btn-danger">Delete</button>
             </form>
           </td>
         </tr>
-      @endforeach  
+      @endforeach
   </tbody>
 </table>
 @endcan
-
+<script>
+$('.deleteBtn').click(function(e){
+    e.preventDefault()
+    if (confirm('Are you sure?')) {
+        $(e.target).closest('form').submit()
+    }
+})
+</script>
 @endsection

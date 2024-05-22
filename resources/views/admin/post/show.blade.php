@@ -3,6 +3,8 @@
 
 @endsection
 @section('content')
+<h3>Post</h3>
+<hr>
 <div class="d-flex justify-content-end">
 <a href="{{route('admin.post.edit',$post->id)}}">
     <button type="button" class="btn btn-warning">Edit</button>
@@ -13,8 +15,8 @@
         <strong><h3>{{$post->title}}</h3></strong>
     </div>
     <div class="d-flex justify-content-center">
-        <p>Posted by <i>{{$post->user->name}}</i> 
-        in <i>{{$post->category->category}}</i> 
+        <p>Posted by <i>{{$post->user->name}}</i>
+        in <i>{{$post->category->category}}</i>
         at <i>{{$post->created_at}}</i></p>
     </div>
     <div class="d-flex justify-content-center">

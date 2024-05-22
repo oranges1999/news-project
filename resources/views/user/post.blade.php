@@ -17,7 +17,7 @@ img{
     height: auto;
 }
 
-#deleteBtn{
+#deleteBtn, .like{
     border: none;
     background: none;
 }
@@ -33,8 +33,8 @@ img{
             <strong><h3>{{$post->title}}</h3></strong>
         </div>
         <div class="">
-            <p>Posted by <i>{{$post->user->name}}</i> 
-            in <i>{{$post->category->category}}</i> 
+            <p>Posted by <i>{{$post->user->name}}</i>
+            in <i>{{$post->category->category}}</i>
             at <i>{{$post->created_at}}</i></p>
         </div>
         <div class="">
@@ -43,12 +43,38 @@ img{
         <div class="">
             <div>{!!$post->content!!}</div>
         </div>
-        <div class="d-flex">
-        @foreach ($post->tags as $tag )
-            <a href="{{route('postTag',$tag->id)}}">
-                <div id="tags" class="">{{$tag->name}}</div>
-            </a>
-        @endforeach
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                @foreach ($post->tags as $tag )
+                <a href="{{route('postTag',$tag->id)}}">
+                    <div id="tags" class="">{{$tag->name}}</div>
+                </a>
+                @endforeach
+            </div>
+            <div class="d-flex">
+                @auth
+                    @if (Auth::user()->hasLikedPost($post->id))
+                    <form action="{{route('unlike',$post->id)}}" method="post">
+                        @csrf
+                        <button type="submit" class="like">
+                            <i class="fs-3 fa-solid fa-heart"></i>
+                        </button>
+                    </form>
+                    @else
+                    <form action="{{route('like',$post->id)}}" method="post">
+                        @csrf
+                        <button type="submit" class="like">
+                            <i class="fs-3 fa-regular fa-heart"></i>
+                        </button>
+                    </form>
+                    @endif
+                @else
+                    <a href="{{route('login')}}">
+                        <i class="fs-3 fa-regular fa-heart"></i>
+                    </a>
+                @endauth
+                <div><p class="fs-4">{{$post->likePost()->count()}}</p></div>
+            </div>
         </div>
         <div>
             <div>
@@ -84,9 +110,7 @@ img{
                                 @method('delete')
                                 <button id="deleteBtn" class="text-center" type="submit">Remove</button>
                             </form>
-                            
                             @endif
-                            <a href="#!" class="link-grey">Reply</a>    
                             @endauth
                         </p>
                     </div>
@@ -97,7 +121,7 @@ img{
         </div>
     </div>
     <div class="col-md-4">
-        
+
 </div>
 </div>
 @endsection

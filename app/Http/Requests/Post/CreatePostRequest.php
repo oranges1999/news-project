@@ -25,7 +25,7 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'front_page_image_path'=>'required',
-            'title'=>'required|between:3,10',
+            'title'=>'required|between:3,100',
             'category_id'=>'required',
             'content'=>'required|between:3,10000',
             'publish_at'=>'sometimes',

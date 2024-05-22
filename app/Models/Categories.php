@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+// Observe by CategoriesObserver, declared in EventServiceProvider
 class Categories extends Model
 {
     use HasFactory, SoftDeletes;

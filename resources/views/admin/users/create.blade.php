@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>User</h3>
+<hr>
     <form action="{{route('admin.users.store')}}" method="post">
         @csrf
         <div class="mb-3">
@@ -43,5 +45,5 @@
         <a href="{{route('admin.users.index')}}">
             <button type="button" class="btn btn-warning">Cancle</button>
         </a>
-    </form>  
+    </form>
 @endsection

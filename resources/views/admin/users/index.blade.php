@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>User</h3>
+<hr>
 <div>
     <a href="{{route('admin.users.create')}}">
         <button type="button" class="btn btn-primary">Create</button>
@@ -28,8 +30,10 @@
                 <td>{{$user->role}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->updated_at}}</td>
-                <td>{{$user->deleted_at?'Deleted':''}}</td>
+                <td>{{$user->deleted_at?$user->deleted_at:''}}</td>
                 <td class="d-flex">
+                    @if ($user->deleted_at)
+                    @else
                     <a href="{{route('admin.users.edit',$user->id)}}">
                         <button type="button" class="btn btn-warning">Edit</button>
                     </a>
@@ -38,6 +42,7 @@
                         @method('delete')
                         <button onclick="" type="submit" class="deleteBtn btn btn-danger">Delete</button>
                     </form>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -47,11 +52,11 @@
 @endsection
 @section('script')
 <script>
-$('#deleteBtn').click(function(e){
+$('.deleteBtn').click(function(e){
     e.preventDefault()
     if (confirm('Are you sure?')) {
-        $(e.target).closest('form').submit()    
+        $(e.target).closest('form').submit()
     }
 })
-</script>    
+</script>
 @endsection

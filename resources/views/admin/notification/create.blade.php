@@ -1,6 +1,8 @@
 
 @extends('admin.homepage')
 @section('content')
+<h3>Notification</h3>
+<hr>
 <div>
     <form action="{{route('admin.notification.store')}}" method="post">
         @csrf
@@ -51,7 +53,7 @@ $(document).ready(function(){
         if($("#user:selected").length>0){
             $('#select-user').attr('disabled','disabled')
         }
-    })    
+    })
 })
 $('#select-user').select2({
     multiple:true,

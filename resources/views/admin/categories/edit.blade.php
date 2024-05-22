@@ -1,5 +1,7 @@
 @extends('admin.homepage')
 @section('content')
+<h3>Category</h3>
+<hr>
 <div>
     <form action="{{route('admin.categories.update',$category->id)}}" method="post">
         @csrf
@@ -22,11 +24,11 @@
         @foreach ($errors->get('description') as $descriptionMessage)
                 <div>{{$descriptionMessage}}</div>
         @endforeach
-        <input type="text" name="id" value="{{$category->id}}" hidden>        
+        <input type="text" name="id" value="{{$category->id}}" hidden>
         <a href="{{route('admin.categories.index')}}">
             <button type="button" class="btn btn-danger">Cancel</button>
         </a>
-        <button type="submit" class="btn btn-warning">Update</button>        
+        <button type="submit" class="btn btn-warning">Update</button>
     </form>
 </div>
 @endsection

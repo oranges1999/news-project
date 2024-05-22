@@ -37,6 +37,8 @@
 </style>
 @endsection
 @section('content')
+<h3>Image</h3>
+<hr>
 <div class="field" align="left">
     <form action="{{route('admin.image.store')}}" method="post" enctype="multipart/form-data">
         @csrf
