@@ -42,9 +42,9 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Image $image)
     {
-        //
+        return view('admin.images.show',compact('image'));
     }
 
     /**
@@ -66,9 +66,10 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Image $image)
     {
-        //
+        $image->delete();
+        return redirect()->back();
     }
 
     private function storeImage($images)
@@ -82,7 +83,7 @@ class ImageController extends Controller
             $path = $image->storeAs(
                 'public', $imageName
             );
-            // Get image path of on the symlink folder
+            // Get image path of the symlink folder
             $path = str_replace('public','storage',$path);
             // Resize the image using Intervention/Image
             $imgManager = new ImageManager(new Driver);

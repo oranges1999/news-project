@@ -36,10 +36,10 @@ class ScheduleNotificationJob implements ShouldQueue
         }
     }
 
-    public function send(SendNotifications $sendNotifications)
+    private function send(SendNotifications $sendNotifications)
     {
         $sendNotifications->update(array('status'=>'sent'));
-        switch ($sendNotifications->type) 
+        switch ($sendNotifications->type)
         {
             case 'other':
                 foreach ($sendNotifications->receiver_id as $user_id) {
