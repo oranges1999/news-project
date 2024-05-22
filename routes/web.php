@@ -54,6 +54,11 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/mark-as-read','markOneAsRead')->name('markAsRead');
         Route::get('/mark-all-read','markAllAsRead')->name('markAllRead');
     });
+    // Like and unlike post
+    Route::controller('User\LikeController')->group(function(){
+        Route::post('/like/{post}','like')->name('like');
+        Route::post('/unlike/{post}','unlike')->name('unlike');
+    });
 });
 
 // Authentication
